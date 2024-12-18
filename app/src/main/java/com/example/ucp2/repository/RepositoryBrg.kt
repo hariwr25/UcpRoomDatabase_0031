@@ -7,12 +7,12 @@ interface RepositoryBrg {
     interface RepositoryBrg {
 
         suspend fun insertBrg(barang: Barang)
-        fun getAllBrg(): Flow<List<Barang>>
-
-        fun getBrg(nim: String): Flow<Barang>
-
-        suspend fun deleteBrg(barang: Barang)
-
         suspend fun updateBrg(barang: Barang)
+        suspend fun deleteBrg(barang: Barang)
+        fun getAllBrg(): Flow<List<Barang>>
+        fun getBarangByName(name: String): Flow<Barang>
+        fun getBarangWithSupplier(): Flow<List<Barang>>
+
+
     }
 }

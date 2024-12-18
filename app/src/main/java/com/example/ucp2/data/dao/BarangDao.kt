@@ -1,24 +1,38 @@
 package com.example.ucp2.data.dao
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Update
+import androidx.room.*
 import com.example.ucp2.data.Barang
 import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface BarangDao {
-    @Insert
+
+    // Insert Barang
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertBarang(barang: Barang)
 
-    @Query
-        ("SELECT * FROM barang ORDER BY nama ASC")
+    // Update Barang
+    @Update
+    suspend fun updateBarang(barang: Barang)
+
+    // Delete Barang
+    @Delete
+    suspend fun deleteBarang(barang: Barang)
+
+    // Ambil Semua Barang
+    @Query("SELECT * FROM Barang ORDER BY nama ASC")
     fun getAllBarang(): Flow<List<Barang>>
 
-    @Query
-        ("SELECT * FROM barang WHERE nama = :nama")
-    fun getBarang(nama: String): Flow<Barang>
+    // Ambil Barang berdasarkan Nama
+    @Query("SELECT * FROM Barang WHERE nama = :nama")
+    fun getBarangByName(nama: String): Flow<Barang>
 
+    // Ambil Barang beserta Nama Suplier dengan JOIN
+    @Query("""
+        SELECT Barang.id, Barang.nama, Barang.deskripsi, Barang.harga, Barang.stok, Suplier.nama AS namaSuplier
+        FROM Barang 
+        INNER JOIN Suplier ON Barang.nama = Suplier.id
+        ORDER BY Barang.nama ASC
+    """)
+    fun getBarangWithSuplier(): Flow<List<Barang>>
 }
