@@ -29,11 +29,13 @@ class UpdateBarangViewModel(
                 .toUIStateBrg()
         }
     }
+
     fun UpdateStateBrg(barangEvent: BarangEvent) {
         updateBrgUiState = updateBrgUiState.copy(
             barangEvent = barangEvent
         )
     }
+
     fun validateBrgFields(): Boolean {
         val event = updateBrgUiState.barangEvent
         val errorBrgState = FormErrorBrgState(
@@ -46,4 +48,28 @@ class UpdateBarangViewModel(
 
         updateBrgUiState = updateBrgUiState.copy(isEntryBrgValid = errorBrgState)
         return errorBrgState.isBrgValid()
+    }
+
+    suspend fun updateDataBrg(): Boolean {
+        val currentBrgEvent = updateBrgUiState.barangEvent
+
+        return if (validateBrgFields()) {
+            try {
+                repositoryBrg.updateBarang(currentBrgEvent.toBarangEntity())
+                updateBrgUiState = updateBrgUiState.copy(
+                    snackBarMessage = "Data berhasil diperbarui",
+                    barangEvent = BarangEvent(),
+                    isEntryBrgValid = FormErrorBrgState()
+                )
+                true
+            } catch (e: Exception) {
+                updateBrgUiState =
+                    updateBrgUiState.copy(snackBarMessage = "Gagal memperbarui data barang")
+                false
+            }
+        } else {
+            updateBrgUiState =
+                updateBrgUiState.copy(snackBarMessage = "Data tidak valid. Harap periksa kembali.")
+            false
+        }
     }
