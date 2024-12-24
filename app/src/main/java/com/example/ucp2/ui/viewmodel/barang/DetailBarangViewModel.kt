@@ -3,6 +3,7 @@ package com.example.ucp2.ui.viewmodel.barang
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.ucp2.data.entity.Barang
 import com.example.ucp2.repository.barang.RepositoryBrg
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.SharingStarted
@@ -55,4 +56,28 @@ class DetailBarangViewModel(
             }
         }
     }
+}
+
+data class DetailBrgUiState(
+    val detailUiBrgEvent: BarangEvent = BarangEvent(),
+    val isLoading: Boolean = false,
+    val isError: Boolean = false,
+    val errorBrgMessage: String = ""
+) {
+    val isUiBarangEmpty: Boolean
+        get() = detailUiBrgEvent == BarangEvent()
+
+    val isUiBarangEventNotEmpty: Boolean
+        get() = detailUiBrgEvent != BarangEvent()
+}
+
+fun Barang.toDetailBrglUiEvent(): BarangEvent {
+    return BarangEvent(
+        id = id.toString(),
+        namaBarang = namaBarang,
+        deskripsi = deskripsi,
+        harga = harga.toString(),
+        stok = stok.toString(),
+        namaSupplier = namaSupplier
+    )
 }
