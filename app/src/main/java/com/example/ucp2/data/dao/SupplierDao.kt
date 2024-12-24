@@ -12,10 +12,10 @@ interface SupplierDao {
     @Insert
     suspend fun insertSupplier(supplier: Supplier)
 
-    @Query("SELECT * FROM tblSpl ORDER BY id")
+    @Query("SELECT * FROM tblSupplier ORDER BY id")
     fun getAllSupplier(): Flow<List<Supplier>>
 
-    @Query("SELECT nama FROM tblSpl")
+    @Query("SELECT nama FROM tblSupplier")
     fun getSupplierNama(): Flow<List<String>>
 
 }

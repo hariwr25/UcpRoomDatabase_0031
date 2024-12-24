@@ -15,9 +15,9 @@ interface BarangDao {
     @Delete
     suspend fun deleteBarang(barang: Barang)
 
-    @Query("SELECT * FROM tblBrg ORDER BY namaBarang")
+    @Query("SELECT * FROM tblBarang ORDER BY namaBarang")
     fun getAllBarang(): Flow<List<Barang>>
 
-    @Query("SELECT * FROM tblBrg WHERE id = :id")
+    @Query("SELECT * FROM tblBarang WHERE id = :id")
     fun getBarang(id: Int): Flow<Barang>
 }

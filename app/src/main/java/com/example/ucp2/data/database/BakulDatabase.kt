@@ -9,8 +9,9 @@ import com.example.ucp2.data.entity.Supplier
 import com.example.ucp2.data.dao.BarangDao
 import com.example.ucp2.data.dao.SupplierDao
 
-@Database(entities = [Barang::class], [Supplier::class], version = 1, exportSchema = false)
+@Database(entities = [Barang::class, Supplier::class], version = 1, exportSchema = false)
 abstract class BakulDatabase : RoomDatabase() {
+
     abstract fun barangDao(): BarangDao
     abstract fun supplierDao(): SupplierDao
 
@@ -19,14 +20,13 @@ abstract class BakulDatabase : RoomDatabase() {
         private var Instance: BakulDatabase? = null
 
         fun getDatabase(context: Context): BakulDatabase {
-            return (Instance ?: synchronized(this) {
+            return Instance ?: synchronized(this) {
                 Room.databaseBuilder(
                     context.applicationContext,
                     BakulDatabase::class.java,
-                    "BakulDatabase"
-                )
-                    .build().also { Instance = it }
-            })
+                    "Bakul Database"
+                ).build().also { Instance = it }
+            }
         }
     }
 }

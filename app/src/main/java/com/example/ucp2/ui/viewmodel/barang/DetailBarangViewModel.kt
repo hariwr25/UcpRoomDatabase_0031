@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.ucp2.data.entity.Barang
 import com.example.ucp2.repository.barang.RepositoryBrg
+import com.example.ucp2.ui.navigation.DestinasiDetailBrg
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
