@@ -25,3 +25,31 @@ class SupplierViewModel(private val repositorySup: RepositorySup) : ViewModel() 
         return errorSplState.isSplValid()
     }
 }
+
+suspend fun saveDataSupplier(): Boolean {
+    val currentSplEvent = uiSplState.supplierEvent
+
+    return if (validateSplFields()) {
+        try {
+            repositorySpl.insertSupplier(currentSplEvent.toSupplierEntity())
+            uiSplState = uiSplState.copy(
+                snackBarMessage = "Data berhasil disimpan ke dalam sistem.",
+                supplierEvent = SupplierEvent(),
+                isEntrySplValid = FormErrorSplState()
+            )
+            true
+        } catch (e: Exception) {
+            uiSplState =
+                uiSplState.copy(snackBarMessage = "Terjadi kesalahan saat menyimpan data supplier.")
+            false
+        }
+    } else {
+        uiSplState =
+            uiSplState.copy(snackBarMessage = "Data input tidak valid. Mohon periksa kembali.")
+        false
+    }
+}
+
+fun resetSnackBarSplMessage() {
+    uiSplState = uiSplState.copy(snackBarMessage = null)
+}
