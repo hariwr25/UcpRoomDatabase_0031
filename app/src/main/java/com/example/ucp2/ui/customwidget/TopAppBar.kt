@@ -4,11 +4,11 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.R
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
@@ -32,7 +32,6 @@ fun TopAppBar(
     onActionClick: () -> Unit = {}
 ) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
-
 
     Box(
         modifier = Modifier
@@ -65,7 +64,7 @@ fun TopAppBar(
             navigationIcon = {
                 IconButton(onClick = onBackClick) {
                     Icon(
-                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                        imageVector = Icons.Filled.ArrowBack,
                         contentDescription = "Navigate Back",
                         tint = Color.White
                     )
@@ -91,7 +90,7 @@ fun PreviewTopAppBar() {
     TopAppBar(
         title = "Manage Barang",
         onBackClick = { },
-        actionIcon = R.drawable.box,
+        actionIcon = com.example.ucp2.R.drawable.box,
         onActionClick = { }
     )
 }

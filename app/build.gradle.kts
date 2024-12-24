@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.ucp2"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
@@ -68,6 +68,8 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+    implementation("androidx.compose.ui:ui-tooling-preview:1.3.0")
+    debugImplementation("androidx.compose.ui:ui-tooling:1.3.0")
 
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.7")
     implementation("androidx.navigation:navigation-compose:2.8.3")
@@ -75,5 +77,4 @@ dependencies {
     implementation("androidx.room:room-runtime:2.6.0")
     ksp("androidx.room:room-compiler:2.5.2")
     implementation("androidx.room:room-ktx:2.6.0")
-
 }
