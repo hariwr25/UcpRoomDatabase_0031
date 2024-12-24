@@ -2,7 +2,9 @@ package com.example.ucp2.ui.viewmodel.supplier
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.ucp2.data.entity.Supplier
 import com.example.ucp2.repository.supplier.RepositorySup
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
@@ -11,14 +13,14 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 
-class SupplierHomeViewModel (
+class SupplierHomeViewModel(
     private val repositorySpl: RepositorySup
 ) : ViewModel() {
 
     val homeUiStateSpl: StateFlow<HomeUIStateSpl> = repositorySpl.getAllSupplier()
         .filterNotNull()
         .map {
-            HomeUIStateSpl (
+            HomeUIStateSpl(
                 listSpl = it.toList(),
                 isLoading = false
             )
@@ -32,7 +34,7 @@ class SupplierHomeViewModel (
                 HomeUIStateSpl(
                     isLoading = false,
                     isError = true,
-                    errorMessage = it.message?: "Terjadi Kesalahan"
+                    errorMessage = it.message ?: "Terjadi Kesalahan"
                 )
             )
         }
@@ -44,3 +46,11 @@ class SupplierHomeViewModel (
             )
         )
 }
+
+data class HomeUIStateSpl(
+    val listSpl: List<Supplier> = listOf(),
+    val isLoading: Boolean = false,
+    val isError: Boolean = false,
+    val errorMessage: String = ""
+)
+
