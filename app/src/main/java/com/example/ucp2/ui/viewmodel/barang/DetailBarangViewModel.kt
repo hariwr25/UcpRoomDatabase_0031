@@ -2,6 +2,7 @@ package com.example.ucp2.ui.viewmodel.barang
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.ucp2.repository.barang.RepositoryBrg
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.SharingStarted
@@ -11,12 +12,13 @@ import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 
 class DetailBarangViewModel(
     savedStateHandle: SavedStateHandle,
     private val repositoryBrg: RepositoryBrg,
 ) : ViewModel() {
-    private val _id : String = checkNotNull(savedStateHandle[DestinasiDetailBrg.idBrg])
+    private val _id: String = checkNotNull(savedStateHandle[DestinasiDetailBrg.idBrg])
 
     val detailBrgUiState: StateFlow<DetailBrgUiState> = repositoryBrg.getBarang(_id.toInt())
         .filterNotNull()
@@ -31,10 +33,12 @@ class DetailBarangViewModel(
             delay(600)
         }
         .catch {
-            emit(DetailBrgUiState(
-                isLoading = false,
-                isError = true,
-            ))
+            emit(
+                DetailBrgUiState(
+                    isLoading = false,
+                    isError = true,
+                )
+            )
         }
         .stateIn(
             scope = viewModelScope,
@@ -43,4 +47,12 @@ class DetailBarangViewModel(
                 isLoading = true
             )
         )
+
+    fun deleteBrg() {
+        detailBrgUiState.value.detailUiBrgEvent.toBarangEntity().let {
+            viewModelScope.launch {
+                repositoryBrg.deleteBarang(it)
+            }
+        }
+    }
 }
