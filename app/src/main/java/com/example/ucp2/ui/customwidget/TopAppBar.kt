@@ -4,14 +4,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material3.CenterAlignedTopAppBar
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.material3.rememberTopAppBarState
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -28,19 +22,20 @@ fun TopAppBar(
     title: String,
     modifier: Modifier = Modifier,
     onBackClick: () -> Unit = {},
-    actionIcon: Int,
+    actionIcon: Int, // Resource ID untuk ikon
     onActionClick: () -> Unit = {}
 ) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
 
+    // Membungkus dengan Box untuk menerapkan gradasi
     Box(
         modifier = Modifier
             .fillMaxWidth()
             .background(
                 brush = Brush.horizontalGradient(
                     colors = listOf(
-                        Color(0xFF6200EA),
-                        Color(0xFF03DAC5)
+                        Color(0xFF6200EA), // Ungu
+                        Color(0xFF03DAC5)  // Hijau mint
                     )
                 )
             )
@@ -48,7 +43,7 @@ fun TopAppBar(
         CenterAlignedTopAppBar(
             modifier = modifier.fillMaxWidth(),
             colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                containerColor = Color.Transparent,
+                containerColor = Color.Transparent, // Membuat latar belakang transparan
                 titleContentColor = Color.White
             ),
             title = {
@@ -64,7 +59,7 @@ fun TopAppBar(
             navigationIcon = {
                 IconButton(onClick = onBackClick) {
                     Icon(
-                        imageVector = Icons.Filled.ArrowBack,
+                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                         contentDescription = "Navigate Back",
                         tint = Color.White
                     )
@@ -90,7 +85,7 @@ fun PreviewTopAppBar() {
     TopAppBar(
         title = "Manage Barang",
         onBackClick = { },
-        actionIcon = com.example.ucp2.R.drawable.box,
+        actionIcon = android.R.drawable.ic_menu_manage, // Menggunakan ikon bawaan Android
         onActionClick = { }
     )
 }

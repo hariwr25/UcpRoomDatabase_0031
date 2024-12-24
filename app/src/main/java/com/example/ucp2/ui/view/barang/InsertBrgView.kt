@@ -21,7 +21,6 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.ucp2.R
 import com.example.ucp2.data.NamaSupplier
 import com.example.ucp2.ui.customwidget.TopAppBar
 import com.example.ucp2.ui.viewmodel.PenyediaViewModel
@@ -29,6 +28,7 @@ import com.example.ucp2.ui.viewmodel.barang.BarangEvent
 import com.example.ucp2.ui.viewmodel.barang.BarangViewModel
 import com.example.ucp2.ui.viewmodel.barang.FormErrorBrgState
 import com.example.ucp2.ui.viewmodel.barang.brgUIState
+import com.example.ucp22.R
 import kotlinx.coroutines.launch
 
 @Composable
@@ -57,7 +57,7 @@ fun InsertBrgView(
             TopAppBar(
                 title = title,
                 onBackClick = onBackArrow,
-                actionIcon = R.drawable.box
+                actionIcon = android.R.drawable.ic_menu_manage, // Menggunakan ikon bawaan Android
             )
         },
         modifier = modifier,

@@ -2,11 +2,10 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     id("com.google.devtools.ksp")
-
 }
 
 android {
-    namespace = "com.example.ucp2"
+    namespace = "com.example.ucp22"
     compileSdk = 35
 
     defaultConfig {
@@ -17,7 +16,7 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables{
+        vectorDrawables {
             useSupportLibrary = true
         }
     }
@@ -41,11 +40,11 @@ android {
     buildFeatures {
         compose = true
     }
-    composeOptions{
+    composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
     }
     packaging {
-        resources{
+        resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
@@ -61,7 +60,6 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
-    implementation(libs.androidx.material3.android)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
